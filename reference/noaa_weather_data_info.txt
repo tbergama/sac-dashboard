@@ -1,0 +1,31 @@
+Stations	SOUTH LAKE TAHOE AIRPORT, CA US (GHCND:USW00093230)
+Custom Flag(s)	Station Name, Geographic Location, Include Data Flags
+Units	Standard
+Data Types	WT03 - Thunder
+PRCP - Precipitation
+WT05 - Hail (may include small hail)
+WT06 - Glaze or rime
+WT07 - Dust, volcanic ash, blowing dust, blowing sand, or blowing obstruction
+WT08 - Smoke or haze
+SNWD - Snow depth
+WT09 - Blowing or drifting snow
+WDF2 - Direction of fastest 2-minute wind
+WDF5 - Direction of fastest 5-second wind
+PGTM - Peak gust time
+WT11 - High or damaging winds
+TMAX - Maximum temperature
+WT13 - Mist
+WSF2 - Fastest 2-minute wind speed
+FMTM - Time of fastest mile or fastest 1-minute wind
+WSF5 - Fastest 5-second wind speed
+SNOW - Snowfall
+WT16 - Rain (may include freezing rain, drizzle, and freezing drizzle)"
+WT17 - Freezing rain
+WT18 - Snow, snow pellets, snow grains, or ice crystals
+WT19 - Unknown source of precipitation
+AWND - Average wind speed
+WT22 - Ice fog or freezing fog
+WT01 - Fog, ice fog, or freezing fog (may include heavy fog)
+WT02 - Heavy fog or heaving freezing fog (not always distinguished from fog)
+TAVG - Average Temperature.
+TMIN - Minimum temperature
