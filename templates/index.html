@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- Leaflet -->
+    <!-- Plotly -->
+    <!-- Personal Styles -->
+    <link rel="stylesheet" href="static/css/styles.css">
+    <title>SAC Dashboard</title>
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron jumbo-bg">
+                    <h1>SAC Dashboard</h1>
+                    <h5>An app made FOR jerry's, BY jerry's</h5>
+                    <p>A  data visualization add-on for forecasts by the Sierra Avalanche Center</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <ul>
+                    <h5 class="text-light" data-toggle="popover" data-trigger="hover" 
+                    data-content="This app was designed to dynamically show relevant avalanche data collected by the SAC.  It also aims to introduce new and
+                     useful infographics to help the average backcountry Joe become a new 
+                     backcountry pro!">
+                    About</h5>
+                    <h5 class="text-light" data-toggle="popover" data-trigger="hover" 
+                    data-content="SAC Dashboard was designed for studying season-by-season 
+                    avalanche data.  Use the 'Season' dropdown to select the winter you are
+                    interested in.">
+                    Help</h5>
+                </ul>
+            </div>
+            <div class="col-sm-5 text-info">
+                <p>This will hopefully be a neat graph!</p>
+            </div>
+            <div class="col-sm-5 text-info">
+                    <p>Same with this one!</p>
+                </div>
+        </div>
+    </div>
+    <!-- <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10">
+                <p>{{sac_dash}}</p>
+                <p>{{sac_dash.properties.title}}</p>
+            </div>
+        </div>
+    </div> -->
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();   
+        });
+        </script>
+</body>
+<!-- Bootstrap -->
+
+<!-- D3 -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<!-- Leaflet -->
+<!-- Plotly -->
+<!-- Personal JS -->
+<script src="static/js/"></script>
+<script src=""></script>
+</html>
