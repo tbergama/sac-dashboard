@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <title>SAC Dashboard</title>
 </head>
-<body class="bg-dark">
+<body class="bg-light">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -27,43 +27,38 @@
             </div>
         </div>
     </div>
+    <br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2">
                 <ul>
-                    <h5 class="text-light" data-toggle="popover" data-trigger="hover" 
+                    <h5 class="text-dark" data-toggle="popover" data-trigger="hover" 
                     data-content="This app was designed to dynamically show relevant avalanche data collected by the SAC.  It also aims to introduce new and
                      useful infographics to help the average backcountry Joe become a new 
                      backcountry pro!">
                     About</h5>
-                    <h5 class="text-light" data-toggle="popover" data-trigger="hover" 
+                    <h5 class="text-dark" data-toggle="popover" data-trigger="hover" 
                     data-content="SAC Dashboard was designed for studying season-by-season 
                     avalanche data.  Use the 'Season' dropdown to select the winter you are
                     interested in.">
                     Help</h5>
                 </ul>
             </div>
-            <div class="col-sm-5 text-info">
-                <p>This will hopefully be a neat graph!</p>
+            <div class="col-sm-5 text-dark text-left">
+                <h6>Most Recent Observation</h6>
+                <p>{{sac_dash.observations}}</p>
             </div>
-            <div class="col-sm-5 text-info">
-                    <p>Same with this one!</p>
+            <div class="col-sm-5 text-dark text-left">
+                    <h6>Most Recent Incident</h6>
+                    <p>{{sac_dash.incidents}}</p>
                 </div>
         </div>
     </div>
-    <!-- <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-10">
-                <p>{{sac_dash}}</p>
-                <p>{{sac_dash.properties.title}}</p>
-            </div>
-        </div>
-    </div> -->
     <script>
         $(document).ready(function(){
             $('[data-toggle="popover"]').popover();   
         });
-        </script>
+    </script>
 </body>
 <!-- Bootstrap -->
 
