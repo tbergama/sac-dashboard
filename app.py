@@ -102,6 +102,11 @@ def date_start_end(start,end):
 
     return data
 
+@app.route('/api/v1/sample')
+def all_data():
+    data = query_data('2020-01-01', '2020-06-01')
+    return data
+
 
 # Run app
 if __name__ == '__main__':
