@@ -56,20 +56,38 @@ incidents = pymongo.collection.Collection(db, 'incidents')
         'partial_burials': '0'}
     }'''
 
+
+forecasts = pymongo.collection.Collection(db, 'forecasts')
+
+'''{
+'_id': ObjectId('5eb70199ca551c99d2348c4f'), 
+'Region': 'Sierra Avalanche Center', 
+'Forecast URL': 'https://www.sierraavalanchecenter.org/advisory/2020/may/2/2020-05-02-065414-avalanche-forecast', 
+'Bottom Line': 'A good overnight refreeze and cooler weather...', 
+'Above Treeline': '2. Moderate', 
+'Near Treeline': '2. Moderate', 
+'Below Treeline': '2. Moderate', 
+'Avalanche Problem 1 Issue': 'Loose Wet', 
+'Avalanche Problem 2 Issue': 'Cornice', 
+'Avalanche Problem 3 Issue': '', 
+'Date': '2020-05-02'
+}'''
+
+weather = pymongo.collection.Collection(db, 'weather-daily')
+
 obs_one = json.loads(dumps(observations.find_one()))
 inc_one = json.loads(dumps(incidents.find_one()))
 
 # Query data
 def query_data(start, end):
     q_obs = json.loads(dumps(observations.find({'properties.datetime': {'$gte': start, '$lt': end}})))
-    q_inc = ''
-    q_forecasts = ''
-    q_weather = ''
+    q_inc = json.loads(dumps(incidents.find({'properties.datetime': {'$gte': start, '$lt': end}})))
+    q_forecasts = json.loads(dumps(forecasts.find({'Date': {'$gte': start, '$lt': end}})))
+    q_weather = json.loads(dumps(weather.find({'date': {'$gte': start, '$lt': end}})))
     return {"incidents": q_inc,
         "observations": q_obs,
         "forecasts": q_forecasts,
         "weather": q_weather}
-
 
 @app.route('/')
 def index():
@@ -78,11 +96,11 @@ def index():
 
     return render_template('index.html', sac_dash=data)
 
-@app.route('/api/v1.0/<start>/<end>')
+@app.route('/api/v1/<start>/<end>')
 def date_start_end(start,end):
     data = query_data(start, end)
 
-    return render_template('index.html', sac_dash=data)
+    return data
 
 
 # Run app
