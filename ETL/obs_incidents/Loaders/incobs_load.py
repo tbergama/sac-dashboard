@@ -2,8 +2,8 @@ import json
 import pymongo
 import os
 
-inc_path = '/Users/JLow/Desktop/UCD-DSB/sac-dashboard/ETL/obs_incidents/Files/Incidents/incidents_tf.json'
-obs_path = '/Users/JLow/Desktop/UCD-DSB/sac-dashboard/ETL/obs_incidents/Files/Observations/observations_tf.json'
+inc_path = '/Users/JLow/Desktop/Files/Incidents/incidents_tf.json'
+obs_path = '/Users/JLow/Desktop/Files/Observations/observations_tf.json'
 
 def import_json(file_path):
     with open(file_path, 'r') as f:
@@ -21,11 +21,10 @@ myclient = pymongo.MongoClient(f"mongodb+srv://admin:{password}@cluster0-p6cjk.m
 sac_dash = myclient['sac-dashboard']
 inc_col = sac_dash['incidents']
 inc_col.drop()
-inc_col = sac_dash['incidents']
-inc_col.insert_many(incidents)
 obs_col = sac_dash['observations']
 obs_col.drop()
 obs_col = sac_dash['observations']
+obs_col.insert_many(incidents)
 obs_col.insert_many(observations)
 print(myclient.list_database_names())
 

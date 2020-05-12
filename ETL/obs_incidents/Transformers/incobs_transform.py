@@ -7,8 +7,8 @@
 import json
 import datetime as d
 
-inc_import = '/Users/JLow/Desktop/UCD-DSB/sac-dashboard/IncidentObv Scrape/incidents_2020-05-06 08:55:16.json'
-obs_import = '/Users/JLow/Desktop/UCD-DSB/sac-dashboard/IncidentObv Scrape/observations_2020-05-06 09:00:15.json'
+inc_import = '/Users/JLow/Desktop/Files/Incidents/incidents_2020-05-06 08:55:16.json'
+obs_import = '/Users/JLow/Desktop/Files/Observations/observations_2020-05-09 13:17:22.json'
 
 def import_json(file_path):
     with open(file_path, 'r') as f:
@@ -24,7 +24,10 @@ def to_date(date):
     try:
         dobject = d.datetime.strptime(date, '%A, %B %d, %Y - %H:%M')
     except:
-        dobject = d.datetime.strptime(date, '%a, %m/%d/%Y - %H:%M')
+        try:
+            dobject = d.datetime.strptime(date, '%a, %m/%d/%Y - %H:%M')
+        except:
+            dobject = d.datetime.strptime(date.replace('(All day)', '').strip(), '%a, %m/%d/%Y')
     return dobject.strftime('%m-%d-%Y')
 
 def crown_to_int(crown_h):
@@ -42,6 +45,7 @@ def transform(data,full_bool):
     # simplified transform for obervations
     if full_bool:
         for feature in data:
+            feature['properties']['type'] = 'incident'
             try:
                 # Strip Title
                 feature['properties']['title'] = strip_title(feature['properties']['title'])
@@ -68,6 +72,7 @@ def transform(data,full_bool):
                 quit()
     else:
         for feature in data:
+            feature['properties']['type'] = 'observation'
             try:
                 # Strip Title
                 feature['properties']['title'] = strip_title(feature['properties']['title'])
