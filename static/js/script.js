@@ -1,3 +1,8 @@
+// Popover
+$(document).ready(function() {
+    $('[data-toggle="popover"]').popover();
+});
+
 // Season Object Lookup
 var seasonLookup = {
     '2013/2014': { min: '2013-06-01', max: '2014-05-31' },
