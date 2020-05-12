@@ -4,3 +4,8 @@
     background-position: center !important;
     background-repeat: no-repeat;
     background-size: cover !important;
+}
+
+#incident-map {
+    height: 450px;
+}
