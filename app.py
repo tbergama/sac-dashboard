@@ -15,32 +15,19 @@ mongo = pymongo.MongoClient(f"mongodb+srv://admin:{password}@cluster0-p6cjk.mong
 db = pymongo.database.Database(mongo, 'sac-dashboard')
 
 observations = pymongo.collection.Collection(db, 'observations')
-# Sample Observation
+# Sample Observation/Incident
 '''{'_id': {'$oid': '5eb38382517f507e17208142'}, 
     'type': 'Feature', 
     'geometry': {
         'type': 'Point', 
         'coordinates': ['-120.000369', '38.668149']}, 
     'properties': {
+        'type': 'incident',
         'url': 'https://www.sierraavalanchecenter.org/observation/2020/may/1/1200/round-top', 
         'title': 'Generous window for corn snow at Carson Pass', 
         'location': 'Round Top', 
         'region': 'Carson Pass Area', 
-        'datetime': '05-01-2020'}
-    }'''
-
-incidents = pymongo.collection.Collection(db, 'incidents')
-'''{'_id': {'$oid': '5eb38381517f507e172080d7'}, 
-    'type': 'Feature', 
-    'geometry': {
-        'type': 'Point', 
-        'coordinates': ['-119.996300', '38.715800']}, 
-    'properties': {
-        'url': 'https://www.sierraavalanchecenter.org/observation/2020/apr/10/1200/west-gullies-red-lake-peak', 
-        'title': 'Unintentional D1 on Red Lake Peak', 
-        'location': 'West gullies of Red Lake Peak ', 
-        'region': 'Carson Pass Area', 
-        'datetime': '04-10-2020', 
+        'datetime': '05-01-2020',
         'av_type': 'Wind Slab', 
         'weak_layer': 'New/old snow interface', 
         'trigger': 'Snowboarder', 
@@ -76,23 +63,20 @@ forecasts = pymongo.collection.Collection(db, 'forecasts')
 weather = pymongo.collection.Collection(db, 'weather-daily')
 
 obs_one = json.loads(dumps(observations.find_one()))
-inc_one = json.loads(dumps(incidents.find_one()))
 
 # Query data
 def query_data(start, end):
     q_obs = json.loads(dumps(observations.find({'properties.datetime': {'$gte': start, '$lt': end}})))
-    q_inc = json.loads(dumps(incidents.find({'properties.datetime': {'$gte': start, '$lt': end}})))
     q_forecasts = json.loads(dumps(forecasts.find({'Date': {'$gte': start, '$lt': end}})))
-    q_weather = json.loads(dumps(weather.find({'date': {'$gte': start, '$lt': end}})))
-    return {"incidents": q_inc,
+    # q_weather = json.loads(dumps(weather.find({'date': {'$gte': start, '$lt': end}})))
+    return {
         "observations": q_obs,
         "forecasts": q_forecasts,
-        "weather": q_weather}
+        "weather": ''}
 
 @app.route('/')
 def index():
-    data = {"incidents": inc_one,
-        "observations": obs_one}
+    data = {"observations": obs_one}
 
     return render_template('index.html', sac_dash=data)
 
@@ -100,6 +84,11 @@ def index():
 def date_start_end(start,end):
     data = query_data(start, end)
 
+    return data
+
+@app.route('/api/v1/sample')
+def all_data():
+    data = query_data('2020-03-01', '2020-06-01')
     return data
 
 

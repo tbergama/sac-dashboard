@@ -1,9 +1,31 @@
-                        .jumbo-bg {
-                            /* background-image: url("https://www.alpenglowsports.com/wp-content/uploads/2019/12/EVENTS_MF_BCSkiTour_Int.jpg"); */
-                            background-image: url("https://i.pinimg.com/originals/e9/aa/8c/e9aa8cd401584e75e33f499c1a39b08c.jpg");
-                            height: 80%;
-                            background-position: middle !important;
-                            background-repeat: no-repeat;
-                            background-size: cover !important;
-                            vertical-align: top;
-                        }
+.jumbo-bg {
+    /* background-image: url("https://www.alpenglowsports.com/wp-content/uploads/2019/12/EVENTS_MF_BCSkiTour_Int.jpg"); */
+    background-image: url("https://i.pinimg.com/originals/e9/aa/8c/e9aa8cd401584e75e33f499c1a39b08c.jpg");
+    height: 80%;
+    background-position: middle !important;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+    vertical-align: top;
+}
+
+#incident-map {
+    height: 450px;
+}
+
+
+/* CSS from the Leaflet-Choropleth documentation */
+
+.legend {
+    padding: 6px 8px;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #555;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+}

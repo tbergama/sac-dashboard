@@ -67,11 +67,24 @@
 
             </div>
         </div>
-        <div id='incident-map'></div>
 
-        <!-- Personal Scripts -->
-        <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    </div>
+    <div id='incident-map'></div>
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
 </body>
 
+<!-- D3 -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<!-- Leaflet -->
+<!-- Plotly -->
+<!-- Personal JS -->
+<script src="static/js/config.js"></script>
+<script src="static/js/incident_leaflet.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </html>
