@@ -28,7 +28,7 @@ def to_date(date):
             dobject = d.datetime.strptime(date, '%a, %m/%d/%Y - %H:%M')
         except:
             dobject = d.datetime.strptime(date.replace('(All day)', '').strip(), '%a, %m/%d/%Y')
-    return dobject.strftime('%m-%d-%Y')
+    return dobject.strftime('%Y-%m-%d')
 
 def crown_to_int(crown_h):
     # Dict[properties][crown_h]

@@ -2,12 +2,26 @@ queryUrl  = "http://127.0.0.1:5000/api/v1/sample";
 
 
 // Custom Icon
-var myIcon = L.icon({
-  iconUrl: 'avalanche.svg',
-  iconSize: [38, 95],
-  iconAnchor: [22, 94],
-  popupAnchor: [-3, -76],
-});
+function createCustomMarker(feature, latlng) {
+  switch(feature.properties.type) {
+      case "observation":
+          var obsIcon = new L.icon({
+              iconUrl: 'icons/avalanche.svg',
+              iconSize:     [22, 30], // size of the icon
+              iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
+              popupAnchor:  [-3, -26] // point from which the popup should open relative to the iconAnchor    
+          });
+          return L.marker(latlng, {icon: obsIcon});
+      case "incident":
+          var incIcon = new L.icon({
+              iconUrl: 'icons/tool.png',
+              iconSize:     [22, 30], // size of the icon
+              iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
+              popupAnchor:  [-3, -26] // point from which the popup should open relative to the iconAnchor    
+          });
+          return L.marker(latlng, {icon: incIcon});              
+      }       
+}
 
 
 d3.json(queryUrl).then(function(data) {
@@ -29,8 +43,8 @@ function createFeatures(observationData) {
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
   var observations = L.geoJSON(observationData, {
-    onEachFeature: onEachFeature,
-    icon: myIcon
+    pointToLayer: createCustomMarker,
+    onEachFeature: onEachFeature
   });
 
   // Sending our earthquakes layer to the createMap function
