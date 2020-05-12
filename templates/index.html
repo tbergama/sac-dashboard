@@ -10,94 +10,73 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="../static/js/script.js"></script>
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <!-- Plotly -->
     <!-- Personal Styles -->
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <title>SAC Dashboard</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+
+    <title>Avalanche Dashboard: Lake Tahoe Region</title>
 </head>
 
 <body class="bg-light">
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron jumbo-bg">
-                    <h1>SAC Dashboard</h1>
-                    <h5>An app made FOR jerry's, BY jerry's</h5>
-                    <p>A data visualization add-on for forecasts by the Sierra Avalanche Center</p>
+                    <img src="static/avalanche-dash.svg" alt="Avalanche Dashboard Logo" width="400">
                 </div>
             </div>
         </div>
+
+
         <br>
-        <label for="Season">Filter data by season:</label>
-        <!-- <label for="cars">Filter data by:</label> -->
+        <div>
 
-        <!-- <label class="radio-inline"><input type="radio" name="optradio" checked>Season</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Dates</label> -->
+        </div>
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-sm-2 ">
+                    <div style="text-align: center; ">
+                        <label for="Season ">Filter data by season:</label>
+                        <br>
 
-        <select id="Season">
-            <option>2013/2014</option>
-            <option>2014/2015</option>
-            <option>2015/2016</option>
-            <option>2016/2017</option>
-            <option>2017/2018</option>
-            <option>2018/2019</option>
-            <option>2019/2020</option>
-        </select>
+                        <select id="seasonPicker" name="seasons">
+                            <option value="2013/2014">2013/2014</option>
+                            <option value="2014/2015">2014/2015</option>
+                            <option value="2015/2016">2015/2016</option>
+                            <option value="2016/2017">2016/2017</option>
+                            <option value="2017/2018">2017/2018</option>
+                            <option value="2018/2019">2018/2019</option>
+                            <option value="2019/2020" selected>2019/2020</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <ul>
+                        <h5 class="text-dark " data-toggle="popover " data-trigger="hover " data-content="This app was designed to dynamically show relevant avalanche data collected by the SAC. It also aims to introduce new and useful infographics to
+                        help the average backcountry Joe become a new backcountry pro! ">
+                            About</h5>
+                        <h5 class="text-dark " data-toggle="popover " data-trigger="hover " data-content="SAC Dashboard was designed for studying season-by-season avalanche data. Use the 'Season' dropdown to select the winter you are interested in. ">
+                            Help</h5>
+                    </ul>
 
-        <!-- <div class="input-daterange input-group" id="datepicker">
-            <input type="text" class="input-sm form-control" name="start" />
-            <span class="input-group-addon">to</span>
-            <input type="text" class="input-sm form-control" name="end" />
-        </div> -->
+                </div>
 
-        <!-- <button type="button" class="btn btn-primary">Filter</button> -->
-    </div>
-    <br>
-    <div>
-
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2">
-                <ul>
-                    <h5 class="text-dark" data-toggle="popover" data-trigger="hover" data-content="This app was designed to dynamically show relevant avalanche data collected by the SAC.  It also aims to introduce new and
-                     useful infographics to help the average backcountry Joe become a new 
-                     backcountry pro!">
-                        About</h5>
-                    <h5 class="text-dark" data-toggle="popover" data-trigger="hover" data-content="SAC Dashboard was designed for studying season-by-season 
-                    avalanche data.  Use the 'Season' dropdown to select the winter you are
-                    interested in.">
-                        Help</h5>
-                </ul>
-            </div>
-
-            <div class="col-sm-5 text-dark text-left">
-                <h6>Most Recent Observation</h6>
-                <p>{{sac_dash.observations}}</p>
-            </div>
-            <div class="col-sm-5 text-dark text-left">
-                <h6>Most Recent Incident</h6>
-                <p>{{sac_dash.incidents}}</p>
             </div>
         </div>
+
+
     </div>
     <div id='incident-map'></div>
     <script>
-        $(document).ready(function(){
-            $('[data-toggle="popover"]').popover();   
+        $(document).ready(function() {
+            $('[data-toggle="popover"]').popover();
         });
     </script>
 </body>
-<!-- Bootstrap -->
 
 <!-- D3 -->
 <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -106,5 +85,6 @@
 <!-- Personal JS -->
 <script src="static/js/config.js"></script>
 <script src="static/js/incident_leaflet.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </html>
