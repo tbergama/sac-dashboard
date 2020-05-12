@@ -1,6 +1,9 @@
-.jumbo-bg {
-    background-image: url("https://www.alpenglowsports.com/wp-content/uploads/2019/12/EVENTS_MF_BCSkiTour_Int.jpg");
-    height: 100%;
-    background-position: center !important;
-    background-repeat: no-repeat;
-    background-size: cover !important;
+                        .jumbo-bg {
+                            /* background-image: url("https://www.alpenglowsports.com/wp-content/uploads/2019/12/EVENTS_MF_BCSkiTour_Int.jpg"); */
+                            background-image: url("https://i.pinimg.com/originals/e9/aa/8c/e9aa8cd401584e75e33f499c1a39b08c.jpg");
+                            height: 80%;
+                            background-position: middle !important;
+                            background-repeat: no-repeat;
+                            background-size: cover !important;
+                            vertical-align: top;
+                        }
