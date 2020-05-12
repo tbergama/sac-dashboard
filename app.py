@@ -68,11 +68,11 @@ obs_one = json.loads(dumps(observations.find_one()))
 def query_data(start, end):
     q_obs = json.loads(dumps(observations.find({'properties.datetime': {'$gte': start, '$lt': end}})))
     q_forecasts = json.loads(dumps(forecasts.find({'Date': {'$gte': start, '$lt': end}})))
-    # q_weather = json.loads(dumps(weather.find({'date': {'$gte': start, '$lt': end}})))
+    q_weather = json.loads(dumps(weather.find({'date': {'$gte': start, '$lt': end}})))
     return {
         "observations": q_obs,
         "forecasts": q_forecasts,
-        "weather": ''}
+        "weather": q_weather}
 
 @app.route('/')
 def index():
