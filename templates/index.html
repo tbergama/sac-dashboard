@@ -14,6 +14,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
     <!-- D3 -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- Leaflet -->
@@ -76,8 +79,7 @@
             <div class="col" id="incident-map-main"></div>
         </div>
         <div class="row">
-            <div class="col incident-map-sm"> [INSERT MAP/GRAPHIC HERE] </div>
-            <div class="col incident-map-sm"> [INSERT MAP/GRAPHIC HERE] </div>
+            <div class="col incident-map-sm" id="precipTempGraph"> </div>
         </div>
         <div class="row">
             <div class="col">
@@ -141,6 +143,7 @@
 <!-- Personal JS -->
 <script src="static/js/config.js "></script>
 <script src="static/js/incident_leaflet.js "></script>
+<script type="text/javascript " src="{{ url_for( 'static', filename='js/precipTempGraph.js' ) }} "></script>
 <script type="text/javascript " src="{{ url_for( 'static', filename='js/script.js' ) }} "></script>
 
 </html>
