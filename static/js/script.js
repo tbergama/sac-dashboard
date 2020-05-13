@@ -23,7 +23,10 @@ console.log(lookupURL);
 d3.json(lookupURL).then(data => {
     dataCache[selectedSeason] = data;
     console.log(dataCache);
+    precipTempGraph(dataCache, selectedSeason);
 })
+
+
 
 
 // Load data on change
