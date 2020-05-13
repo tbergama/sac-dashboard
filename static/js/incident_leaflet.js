@@ -34,7 +34,7 @@ function createCustomMarker(feature, latlng) {
       case "incident":
           var incIcon = new L.icon({
               iconUrl: 'static/icons/shovel-color.svg',
-              iconSize:     [40, 30], // size of the icon
+              iconSize:     [30, 30], // size of the icon
               iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
               popupAnchor:  [-3, -26] // point from which the popup should open relative to the iconAnchor    
           });
@@ -52,7 +52,8 @@ function createFeatures(data_list) {
         return layer.bindPopup("<h6>" + feature.properties.location +
         "</h6><hr>" +
         "<p>" + feature.properties.datetime + "</p>" + 
-        "<p>" + feature.properties.title + "</p>");
+        "<p>" + feature.properties.title + "</p>" +
+        "<hr><a href=\"" + feature.properties.url + "\">Full Report</a>");
       case "incident":
         return layer.bindPopup("<h5>" + feature.properties.title +
         "</h5><hr><h6>" + feature.properties.datetime + "</h6>" +
@@ -62,7 +63,8 @@ function createFeatures(data_list) {
           "<li>Relative Size: " + feature.properties.rel_size + "</li>" + 
           "<li>People Caught: " + feature.properties.people_caught + "</li>" +
           "<li>Partial Burials: " + feature.properties.partial_burials + "</li>" +
-        "</ul>");            
+        "</ul>" +
+        "<hr><a href=\"" + feature.properties.url + "\">Full Report</a>");            
       }
   }
 
@@ -77,7 +79,39 @@ function createFeatures(data_list) {
     onEachFeature: onEachFeature
   });
 
-  var layerList = [observations, incidents];
+  function getClusterSize(childCount){
+    switch (true){
+      case (childCount > 100):
+        return [80,80];
+      case (childCount > 50):
+        return [60,60];
+      case (childCount > 30):
+        return [childCount + 10, childCount + 10];
+      default:
+        return [35,35];
+    }
+  }
+
+  var obsCluster = L.markerClusterGroup({
+    iconCreateFunction: function(cluster) {
+      var clusterSize = getClusterSize(cluster.getChildCount());
+      return new L.divIcon({
+        iconUrl: 'static/icons/binocs.svg',
+        iconSize:     clusterSize, // size of the icon
+        iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -26], // point from which the popup should open relative to the iconAnchor
+        html: ('<div style=\"padding-top:10%;\">' + 
+                '<div class=\"bg-light\" style=\"width:18px; margin:auto; border-radius:50%; padding:0px;\">' + 
+                  '<strong>' + cluster.getChildCount() + '</strong>' +
+                '</div>' +
+              '</div>')
+      });
+    },
+    maxClusterRadius: 50
+  });
+  obsCluster.addLayer(observations);
+
+  var layerList = [obsCluster, incidents];
   // Sending our earthquakes layer to the createMap function
   createMap(layerList);
 }
@@ -88,6 +122,7 @@ function createMap(layerList) {
   var hikemap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
+    minZoom: 8,
     id: "mapbox.run-bike-hike",
     accessToken: API_KEY
   });
@@ -95,6 +130,7 @@ function createMap(layerList) {
   var topomap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
+    minZoom: 8,
     id: "mapbox.outdoors",
     accessToken: API_KEY
   });
@@ -107,8 +143,8 @@ function createMap(layerList) {
 
   // Create overlay object to hold our overlay layer
   var overlayMaps = {
-    Observations: layerList[0],
-    Incidents: layerList[1]
+    Incidents: layerList[1],
+    Observations: layerList[0]
   };
 
   // Create our map, giving it the streetmap and earthquakes layers to display on load
