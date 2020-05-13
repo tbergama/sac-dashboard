@@ -5,13 +5,13 @@ $(document).ready(function() {
 
 // Season Object Lookup
 var seasonLookup = {
-    '2013/2014': { min: '2013-10-01', max: '2014-04-30' },
-    '2014/2015': { min: '2014-10-01', max: '2015-04-30' },
-    '2015/2016': { min: '2015-10-01', max: '2016-04-30' },
-    '2016/2017': { min: '2016-10-01', max: '2017-04-30' },
-    '2017/2018': { min: '2017-10-01', max: '2018-04-30' },
-    '2018/2019': { min: '2018-10-01', max: '2019-04-30' },
-    '2019/2020': { min: '2019-10-01', max: '2020-04-30' }
+    '2013/2014': { min: '2013-11-01', max: '2014-04-30' },
+    '2014/2015': { min: '2014-11-01', max: '2015-04-30' },
+    '2015/2016': { min: '2015-11-01', max: '2016-04-30' },
+    '2016/2017': { min: '2016-11-01', max: '2017-04-30' },
+    '2017/2018': { min: '2017-11-01', max: '2018-04-30' },
+    '2018/2019': { min: '2018-11-01', max: '2019-04-30' },
+    '2019/2020': { min: '2019-11-01', max: '2020-04-30' }
 }
 
 var dataCache = {};
@@ -42,10 +42,12 @@ d3.select('#seasonPicker')
                 console.log(lookupURL);
                 dataCache[selectedSeason] = data;
                 console.log(dataCache);
+                precipTempGraph(dataCache, selectedSeason);
             })
         } else {
             console.log("Data already pulled from API. Referencing cached JSON...");
             console.log(dataCache);
+            precipTempGraph(dataCache, selectedSeason);
         }
 
     });
