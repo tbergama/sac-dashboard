@@ -2,18 +2,29 @@ queryUrl = "http://127.0.0.1:5000/api/v1/sample";
 
 
 d3.json(queryUrl).then(function(data){
-  // Grab forecasts and transform as needed
-  // Transpose the data into layers
+  
+  createBNA(data);
+});
 
+function forecastToInt(forecast){
+  var severity = forecast.slice(0,1);
+  return +severity;
+}
+
+function createBNA(data){
+  // Define 'y' values and y labels
   var levels = ['Below Treeline', 'Near Treeline', 'Above Treeline'];
   var yLabels = ['Below', 'Near', 'Above'];
+  // Map dates for xAxis
   var dates = data.forecasts.map(d => d.Date);
+  // Map forecast data as heatmap values
   var zSeverity = levels.map(function(level){
     return data.forecasts.map(function(d){
       return forecastToInt(d[level]);
   })});
-  console.log(zSeverity);
+  // console.log(zSeverity);
 
+  // Define the colorscale to be used
   var colorscaleValue = [
     [0, '#b3e5fc'],
     [0.25, '#4fc3f7'],
@@ -22,6 +33,7 @@ d3.json(queryUrl).then(function(data){
     [1, '#01579b']
   ];
 
+  //Create Trace/Data
   var dataset = [
     {
       z: zSeverity,
@@ -32,8 +44,9 @@ d3.json(queryUrl).then(function(data){
       colorscale: colorscaleValue
     }
   ];
-  console.log(dataset);
+  // console.log(dataset);
 
+  // Define Layout
   var layout = {
     title: 'Avalanche Danger by Proximity to Treeline',
     xaxis: {
@@ -43,37 +56,7 @@ d3.json(queryUrl).then(function(data){
     autosize: true
   };
   
-  Plotly.newPlot('bna', dataset, layout);
-});
 
-function forecastToInt(forecast){
-  var severity = forecast.slice(0,1);
-  return +severity;
-}
-
-function getColor(forecast){
-  switch (forecastToInt(forecast)){
-    case 1:
-      return '#EEE';
-    case 2:
-      return '#AAA';
-    case 3:
-      return '#777';
-    case 4:
-      return '#444';
-    case 5:
-      return '#111';
-    default:
-      return '#FFF';
-  }
-}
-
-function getY(level){
-  if (level == 'Above Treeline'){
-    return 3;
-  } else if (level == 'Near Treeline'){
-    return 2;
-  } else {
-    return 1;
-  }
+  // Plot data
+  Plotly.newPlot('bnaGraph', dataset, layout);
 }

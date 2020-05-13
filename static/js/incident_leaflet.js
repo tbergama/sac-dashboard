@@ -91,7 +91,6 @@ function createFeatures(data_list) {
                 return [35, 35];
         }
     }
-  }
 
   var obsCluster = L.markerClusterGroup({
     iconCreateFunction: function(cluster) {
