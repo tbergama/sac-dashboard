@@ -21,9 +21,13 @@ function createBNA(data){
   // Define the colorscale to be used
   var colorscaleValue = [
     [0, '#b3e5fc'],
+    [0.25, '#b3e5fc'],
     [0.25, '#4fc3f7'],
+    [0.5, '#4fc3f7'],
     [0.5, '#03a9f4'],
+    [0.75, '#03a9f4'],
     [0.75, '#0288d1'],
+    [0.75, '#01579b'],
     [1, '#01579b']
   ];
 
@@ -35,7 +39,14 @@ function createBNA(data){
       y: yLabels,
       type: 'heatmap',
       hoverongaps: false,
-      colorscale: colorscaleValue
+      colorscale: colorscaleValue,
+      colorbar:{
+        autotick: false,
+        tick1: 0,
+        dtick: 1
+      },
+      ygap: 4,
+      showscale: true
     }
   ];
   // console.log(dataset);
@@ -47,7 +58,8 @@ function createBNA(data){
       range: [dates[-1], dates[0]],
       type: 'date'
     },
-    autosize: true
+    autosize: true,
+    showlegend: false
   };
   
 

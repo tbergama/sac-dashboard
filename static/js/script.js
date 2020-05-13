@@ -3,6 +3,9 @@ $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
 
+// "Initialize" myMap variable
+var myMap = null;
+
 // Season Object Lookup
 var seasonLookup = {
     '2013/2014': { min: '2013-11-01', max: '2014-04-30' },
@@ -25,12 +28,14 @@ d3.json(lookupURL).then(data => {
     console.log(dataCache);
 
     // Graph/Map Function calls
-    mapObservations(data.observations);
+    callPlots(dataCache, selectedSeason);
+});
+
+function callPlots(dataCache, selectedSeason){
+    mapObservations(dataCache[selectedSeason].observations);
     precipTempGraph(dataCache, selectedSeason);
-    createBNA(data);
-})
-
-
+    createBNA(dataCache[selectedSeason]);
+}
 
 
 // Load data on change
@@ -46,12 +51,12 @@ d3.select('#seasonPicker')
                 console.log(lookupURL);
                 dataCache[selectedSeason] = data;
                 console.log(dataCache);
-                precipTempGraph(dataCache, selectedSeason);
+                callPlots(dataCache, selectedSeason);
             })
         } else {
             console.log("Data already pulled from API. Referencing cached JSON...");
             console.log(dataCache);
-            precipTempGraph(dataCache, selectedSeason);
+            callPlots(dataCache, selectedSeason);
         }
 
     });

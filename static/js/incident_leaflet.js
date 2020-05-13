@@ -2,6 +2,8 @@
 
 // Overhead function for the map
 function mapObservations(data){
+    document.getElementById('incident-map-main').innerHTML = '<div class="col" id="incident-map-main"></div>';
+    if (myMap != undefined) { myMap.remove(); }
     createFeatures(createLayerData(data));
 }
 
@@ -152,7 +154,7 @@ function createMap(layerList) {
     };
 
     // Create our map, giving it the streetmap and earthquakes layers to display on load
-    var myMap = L.map("incident-map-main", {
+    myMap = L.map("incident-map-main", {
         center: [39.0968, -120.0324],
         zoom: 9,
         layers: [topomap, layerList[0], layerList[1]]
