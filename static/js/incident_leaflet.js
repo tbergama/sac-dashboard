@@ -148,7 +148,7 @@ function createMap(layerList) {
   };
 
   // Create our map, giving it the streetmap and earthquakes layers to display on load
-  var myMap = L.map("incident-map", {
+  var myMap = L.map("incident-map-main", {
     center:[39.0968, -120.0324],
     zoom: 9,
     layers: [topomap, layerList[0], layerList[1]]
@@ -177,5 +177,5 @@ function createMap(layerList) {
 
     return div;
   };
-
+  legend.addTo(myMap);
 }
