@@ -1,45 +1,45 @@
-queryUrl  = "http://127.0.0.1:5000/api/v1/sample";
+queryUrl = "http://127.0.0.1:5000/api/v1/sample";
 
 
 
 d3.json(queryUrl).then(function(data) {
-  // Split data into ints and obs
-  var observations = data.observations.filter(function(feature){
-    if (feature.properties.type == 'observation'){
-    return feature;
-    } 
-  });
-  var incidents = data.observations.filter(function(feature){
-    if (feature.properties.type == 'incident'){
-    return feature;
-    } 
-  });
-  var data_list = [observations, incidents];
-  // Once we get a response, send the data.features object to the createFeatures function
-  createFeatures(data_list);
+    // Split data into ints and obs
+    var observations = data.observations.filter(function(feature) {
+        if (feature.properties.type == 'observation') {
+            return feature;
+        }
+    });
+    var incidents = data.observations.filter(function(feature) {
+        if (feature.properties.type == 'incident') {
+            return feature;
+        }
+    });
+    var data_list = [observations, incidents];
+    // Once we get a response, send the data.features object to the createFeatures function
+    createFeatures(data_list);
 });
 
 
 // Custom Icon
 function createCustomMarker(feature, latlng) {
-  switch(feature.properties.type) {
-      case "observation":
-          var obsIcon = new L.icon({
-              iconUrl: 'static/icons/binocs.svg',
-              iconSize:     [22, 30], // size of the icon
-              iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
-              popupAnchor:  [-3, -26] // point from which the popup should open relative to the iconAnchor    
-          });
-          return L.marker(latlng, {icon: obsIcon});
-      case "incident":
-          var incIcon = new L.icon({
-              iconUrl: 'static/icons/shovel-color.svg',
-              iconSize:     [30, 30], // size of the icon
-              iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
-              popupAnchor:  [-3, -26] // point from which the popup should open relative to the iconAnchor    
-          });
-          return L.marker(latlng, {icon: incIcon});              
-      }       
+    switch (feature.properties.type) {
+        case "observation":
+            var obsIcon = new L.icon({
+                iconUrl: 'static/icons/binocs.svg',
+                iconSize: [22, 30], // size of the icon
+                iconAnchor: [22, 22], // point of the icon which will correspond to marker's location
+                popupAnchor: [-3, -26] // point from which the popup should open relative to the iconAnchor    
+            });
+            return L.marker(latlng, { icon: obsIcon });
+        case "incident":
+            var incIcon = new L.icon({
+                iconUrl: 'static/icons/shovel-color.svg',
+                iconSize: [40, 30], // size of the icon
+                iconAnchor: [22, 22], // point of the icon which will correspond to marker's location
+                popupAnchor: [-3, -26] // point from which the popup should open relative to the iconAnchor    
+            });
+            return L.marker(latlng, { icon: incIcon });
+    }
 }
 
 function createFeatures(data_list) {
@@ -178,6 +178,4 @@ function createMap(layerList) {
     return div;
   };
 
-  legend.addTo(myMap);
-  
 }

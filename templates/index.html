@@ -10,6 +10,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!-- D3 -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- Leaflet -->
@@ -22,73 +26,121 @@
     <!-- Plotly -->
     <!-- Personal Styles -->
     <link rel="stylesheet" href="static/css/styles.css">
-
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Avalanche Dashboard: Lake Tahoe Region</title>
 </head>
 
 <body class="bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="jumbotron jumbo-bg">
-                    <img src="static/avalanche-dash.svg" alt="Avalanche Dashboard Logo" width="400">
-                </div>
-            </div>
+    <div class="container-fluid" id="topHeader">
+
+        <div class="jumbotron jumbo-bg logo-header">
+            <img src="static/avalanche-dash.svg" alt="Avalanche Dashboard Logo" width="400">
         </div>
-
-
-        <br>
-        <div>
-
-        </div>
-        <div class="container-fluid">
-            <div class="row ">
-                <div class="col-sm-2 ">
-                    <div style="text-align: center; ">
-                        <label for="Season ">Filter data by season:</label>
-                        <br>
-
-                        <select id="seasonPicker" name="seasons">
-                            <option value="2013/2014">2013/2014</option>
-                            <option value="2014/2015">2014/2015</option>
-                            <option value="2015/2016">2015/2016</option>
-                            <option value="2016/2017">2016/2017</option>
-                            <option value="2017/2018">2017/2018</option>
-                            <option value="2018/2019">2018/2019</option>
-                            <option value="2019/2020" selected>2019/2020</option>
-                        </select>
-                    </div>
-                    <hr>
-                    <ul>
-                        <h5 class="text-dark " data-toggle="popover " data-trigger="hover " data-content="This app was designed to dynamically show relevant avalanche data collected by the SAC. It also aims to introduce new and useful infographics to
-                        help the average backcountry Joe become a new backcountry pro! ">
-                            About</h5>
-                        <h5 class="text-dark " data-toggle="popover " data-trigger="hover " data-content="SAC Dashboard was designed for studying season-by-season avalanche data. Use the 'Season' dropdown to select the winter you are interested in. ">
-                            Help</h5>
-                    </ul>
-
-                </div>
-
-            </div>
-        </div>
-
 
     </div>
-    <div id='incident-map'></div>
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="popover"]').popover();
-        });
-    </script>
+    <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="This app was designed to dynamically show relevant avalanche data collected by the SAC. It also aims to introduce new and useful infographics to help the average backcountry Joe become a new backcountry pro!">About </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">|</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="SAC Dashboard was designed for studying season-by-season avalanche data. Use the 'Season' dropdown to select the winter you are interested in."> Help</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">|</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" for="Season ">Filter data by season:</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link">
+                    <select id="seasonPicker" name="seasons">
+                    <option value="2013/2014">2013/2014</option>
+                    <option value="2014/2015">2014/2015</option>
+                    <option value="2015/2016">2015/2016</option>
+                    <option value="2016/2017">2016/2017</option>
+                    <option value="2017/2018">2017/2018</option>
+                    <option value="2018/2019">2018/2019</option>
+                    <option value="2019/2020" selected>2019/2020</option>
+                </select> </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col" id="incident-map-main"></div>
+        </div>
+        <div class="row">
+            <div class="col incident-map-sm"> [INSERT MAP/GRAPHIC HERE] </div>
+            <div class="col incident-map-sm"> [INSERT MAP/GRAPHIC HERE] </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="static/sierra-nevadas.jpg" alt="Sierra Nevada Mountains" width="100%">
+                <div class="panel panel-info">
+                    <div class="panel-heading" style="font-size: 2em;">About the Sierra Nevada Region</div>
+                    <div class="panel-body">
+                        <h4>Physiography</h4>
+                        <p>
+                            The Sierra Nevada is an asymmetrical range with its crest and high peaks decidedly toward the east. The peaks range from 11,000 to 14,000 feet (3,350 to 4,270 metres) above sea level, with Mount Whitney, at 14,494 feet (4,418 metres), the highest peak
+                            in the coterminous United States. Summits in the northern portion are much lower, those north of Lake Tahoe reaching altitudes of only 7,000 to 9,000 feet.
+                        </p>
+                        <p>Much of the rock is granite or a near relative of granite. There are dividing bands of metamorphosed (heat- and pressure-altered) sedimentary rock — all that is left of a once extensive sedimentary basin — and some large areas
+                            of extrusive rock, especially from Lake Tahoe northward; at the northern limit of the Sierras, these rocks merge with the volcanic rocks of the Cascades. </p>
+                        <h4>Geology</h4>
+                        <p>
+                            It has long been recognized that the Sierra Nevada is an upfaulted, tilted block of the Earth’s crust. A major fault zone bounds the block on the east, and it was along this that the great mass that became the Sierra Nevada was uplifted and tilted westward.
+                            This explains the asymmetry of the range. As the block was uplifted the abrupt, east-facing escarpment was cut into by the erosive action of wind, rain, temperature change, frost, and ice, and a series of steep-gradient canyons
+                            developed. On its western flank, streams flow more gently down the geologic dip slope, creating massive alluvial fans that encroach into the Central Valley of California. Though the massive uplift began many millions of years
+                            ago, much of it occurred in the past two million years. The present-day relief of 10,000 to 11,000 feet along the eastern slopes in the southern Sierra Nevada attests to the tremendous uplift.
+                        </p>
+                        <h4>Climate</h4>
+                        <p>
+                            The mid-latitude location of the range and its proximity to the moderating influence of the Pacific Ocean give the Sierra Nevada an unusually mild mountain climate. Although winter temperatures below 0° F (-18° C) are common in valley locations, they
+                            are rare on mountain slopes. The northwest-southeast orientation of the range, athwart the winter-storm tracks of central North America, produces copious precipitation during the wet season (November to April) on the windward
+                            (western) slopes, but a sharp rain-shadow effect occurs on the leeward (eastern) face. Precipitation averages from 30 inches (760 millimetres) in the western foothill zone to 70–80 inches between elevations of 4,500 to 6,500
+                            feet in the northern half of the range. The leeward slopes receive substantially less—from 20 to 40 inches. Snowfall increases with elevation and latitude, the northern peaks of the range averaging 33 to 38 feet per year. As
+                            much as 5.5 feet has fallen in a single day at Echo Summit, and about 67 feet has been measured at the 7,085-foot Donner Pass. Snowpacks of 10 to 15 feet are not uncommon above altitudes of 7,000 feet.
+                        </p>
+                        <p style="font-style: italic, font-size: 1em">Source: <a href="https://www.britannica.com/place/Sierra-Nevada-mountains" target="_blank">Encyclopedia Britannica: Sierra Nevada Mountains - Written By: Armand J. Eardley & John W. James</a></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row" style="align-items: center;">
+            <div class="col" style="align-items: center;">
+
+            </div>
+        </div>
+        <img src="static/avalanche-dash.svg" alt="Avalanche Dashboard Logo" width="200" style="display: block; margin: auto; margin-bottom: 5px;">
+    </div>
+
+    <!-- Footer -->
+    <footer class=" page-footer font-small blue ">
+
+        <div class="text-center py-3 white ">Dashboard created by Tom Bergamaschi, Josh Lowy, Kevin Scheller.
+            <br> UC Davis: Data Analytics Bootcamp 2020
+        </div>
+
+    </footer>
+    <!-- Footer -->
+
 </body>
 
 <!-- D3 -->
-<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js "></script>
 <!-- Leaflet -->
 <!-- Plotly -->
 <!-- Personal JS -->
-<script src="static/js/config.js"></script>
-<script src="static/js/incident_leaflet.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="static/js/config.js "></script>
+<script src="static/js/incident_leaflet.js "></script>
+<script type="text/javascript " src="{{ url_for( 'static', filename='js/script.js' ) }} "></script>
 
 </html>
