@@ -107,7 +107,7 @@ function createFeatures(data_list) {
               '</div>')
       });
     },
-    maxClusterRadius: 50
+    maxClusterRadius: 55
   });
   obsCluster.addLayer(observations);
 
