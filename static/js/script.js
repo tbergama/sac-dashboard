@@ -23,7 +23,11 @@ console.log(lookupURL);
 d3.json(lookupURL).then(data => {
     dataCache[selectedSeason] = data;
     console.log(dataCache);
+
+    // Graph/Map Function calls
+    mapObservations(data.observations);
     precipTempGraph(dataCache, selectedSeason);
+    createBNA(data);
 })
 
 

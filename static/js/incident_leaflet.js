@@ -1,26 +1,28 @@
-queryUrl = "http://127.0.0.1:5000/api/v1/sample";
+// Defines function for leaflet based map of observations and incidents.
 
+// Overhead function for the map
+function mapObservations(data){
+    createFeatures(createLayerData(data));
+}
 
+// Split data into obs and inc for different layers
+function createLayerData(data){
+    var observations = filterFeatures(data, 'observation');
+    var incidents = filterFeatures(data, 'incident');
+    return [observations, incidents];
+}
 
-d3.json(queryUrl).then(function(data) {
-    // Split data into ints and obs
-    var observations = data.observations.filter(function(feature) {
-        if (feature.properties.type == 'observation') {
+// Filter data by 'type' property
+function filterFeatures(data, obstype){
+    return data.filter(function(feature){
+        if (feature.properties.type == obstype) {
             return feature;
         }
     });
-    var incidents = data.observations.filter(function(feature) {
-        if (feature.properties.type == 'incident') {
-            return feature;
-        }
-    });
-    var data_list = [observations, incidents];
-    // Once we get a response, send the data.features object to the createFeatures function
-    createFeatures(data_list);
-});
+}
 
 
-// Custom Icon
+// Create custom icon based on incident or observation
 function createCustomMarker(feature, latlng) {
     switch (feature.properties.type) {
         case "observation":
@@ -42,10 +44,10 @@ function createCustomMarker(feature, latlng) {
     }
 }
 
+// Create overlay layers and bind popups
 function createFeatures(data_list) {
 
-    // Define a function we want to run once for each feature in the features array
-    // Give each feature a popup describing the place and time of the earthquake
+    // Give each feature a popup describing the observation/incident report
     function onEachFeature(feature, layer) {
         switch (feature.properties.type) {
             case "observation":
@@ -68,8 +70,7 @@ function createFeatures(data_list) {
         }
     }
 
-    // Create a GeoJSON layer containing the features array on the earthquakeData object
-    // Run the onEachFeature function once for each piece of data in the array
+    // Create GeoJSON layers and add their icons and popups
     var observations = L.geoJSON(data_list[0], {
         pointToLayer: createCustomMarker,
         onEachFeature: onEachFeature
@@ -79,6 +80,7 @@ function createFeatures(data_list) {
         onEachFeature: onEachFeature
     });
 
+    // Define the icon size based on the cluster child count
     function getClusterSize(childCount) {
         switch (true) {
             case (childCount > 100):
@@ -92,30 +94,32 @@ function createFeatures(data_list) {
         }
     }
 
-  var obsCluster = L.markerClusterGroup({
-    iconCreateFunction: function(cluster) {
-      var clusterSize = getClusterSize(cluster.getChildCount());
-      return new L.divIcon({
-        iconUrl: 'static/icons/binocs.svg',
-        iconSize:     clusterSize, // size of the icon
-        iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
-        popupAnchor:  [-3, -26], // point from which the popup should open relative to the iconAnchor
-        html: ('<div style=\"padding-top:10%;\">' + 
-                '<div class=\"bg-light\" style=\"width:18px; margin:auto; border-radius:50%; padding:0px;\">' + 
-                  '<strong>' + cluster.getChildCount() + '</strong>' +
-                '</div>' +
-              '</div>')
-      });
-    },
-    maxClusterRadius: 55
-  });
-  obsCluster.addLayer(observations);
+    // Convert the observations layer to a marker cluster with updated icon
+    var obsCluster = L.markerClusterGroup({
+        iconCreateFunction: function(cluster) {
+        var clusterSize = getClusterSize(cluster.getChildCount());
+        return new L.divIcon({
+            iconUrl: 'static/icons/binocs.svg',
+            iconSize:     clusterSize, // size of the icon
+            iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
+            popupAnchor:  [-3, -26], // point from which the popup should open relative to the iconAnchor
+            html: ('<div style=\"padding-top:10%;\">' + 
+                    '<div class=\"bg-light\" style=\"width:18px; margin:auto; border-radius:50%; padding:0px;\">' + 
+                    '<strong>' + cluster.getChildCount() + '</strong>' +
+                    '</div>' +
+                '</div>')
+        });
+        },
+        maxClusterRadius: 55
+    });
+    obsCluster.addLayer(observations);
 
-  var layerList = [obsCluster, incidents];
-  // Sending our earthquakes layer to the createMap function
-  createMap(layerList);
+    // Define the layers to be passed to our map
+    var layerList = [obsCluster, incidents];
+    createMap(layerList);
 }
 
+// Build the map and define all other layers/controls/etc.
 function createMap(layerList) {
 
     // Define streetmap and darkmap layers

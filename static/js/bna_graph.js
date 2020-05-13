@@ -1,10 +1,4 @@
-queryUrl = "http://127.0.0.1:5000/api/v1/sample";
-
-
-d3.json(queryUrl).then(function(data){
-  
-  createBNA(data);
-});
+// Defines functions to create the avalanche danger heatmap
 
 function forecastToInt(forecast){
   var severity = forecast.slice(0,1);
