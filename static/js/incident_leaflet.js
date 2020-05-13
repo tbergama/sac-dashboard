@@ -177,5 +177,5 @@ function createMap(layerList) {
 
         return div;
     };
-
+    legend.addTo(myMap);
 }
