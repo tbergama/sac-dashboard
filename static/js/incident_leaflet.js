@@ -34,7 +34,7 @@ function createCustomMarker(feature, latlng) {
         case "incident":
             var incIcon = new L.icon({
                 iconUrl: 'static/icons/shovel-color.svg',
-                iconSize: [40, 30], // size of the icon
+                iconSize: [30, 30], // size of the icon
                 iconAnchor: [22, 22], // point of the icon which will correspond to marker's location
                 popupAnchor: [-3, -26] // point from which the popup should open relative to the iconAnchor    
             });
