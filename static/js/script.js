@@ -35,8 +35,6 @@ d3.json(lookupURL).then(data => {
 
 function callPlots(dataCache, selectedSeason) {
     mapObservations(dataCache[selectedSeason].observations);
-    precipTempGraph(dataCache, selectedSeason);
-    createBNA(dataCache[selectedSeason]);
     createStackedPlot(dataCache, selectedSeason);
 }
 

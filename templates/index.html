@@ -83,10 +83,7 @@
             <div class="col" id="incident-map-main"></div>
         </div>
         <div class="row">
-            <div class="col subPlots" id="precipTempGraph"> </div>
-        </div>
-        <div class="row">
-            <div class="col subPlots" id="bnaGraph"> </div>
+            <div class="col subPlots" id="stackedCharts"> </div>
         </div>
         <div class="row sierraFacts">
             <div class="col sierraFacts">
@@ -150,8 +147,7 @@
 <!-- Personal JS -->
 <script src="static/js/config.js "></script>
 <script src="static/js/incident_leaflet.js "></script>
-<script type="text/javascript " src="{{ url_for( 'static', filename='js/bna_graph.js' ) }} "></script>
-<script type="text/javascript " src="{{ url_for( 'static', filename='js/precipTempGraph.js' ) }} "></script>
+<script type="text/javascript " src="{{ url_for( 'static', filename='js/sharedDateCharts.js' ) }} "></script>
 <script type="text/javascript " src="{{ url_for( 'static', filename='js/script.js' ) }} "></script>
 
 </html>
