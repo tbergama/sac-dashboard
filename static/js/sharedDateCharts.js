@@ -36,6 +36,7 @@ function createBNAtrace(data){
         z: zSeverity,
         x: dates,
         y: yLabels,
+        yaxis: 'y2',
         type: 'heatmap',
         hoverongaps: false,
         colorscale: colorscaleValue,
@@ -87,7 +88,7 @@ function precipTempTraces(dataCache, selectedSeason) {
         type: 'bar',
         text: avgHighLow,
         textposition: 'outside',
-        yaxis: 'y2'
+        yaxis: 'y3'
     };
 
     var trace2 = {
@@ -95,40 +96,109 @@ function precipTempTraces(dataCache, selectedSeason) {
         y: totalRain,
         name: 'Rainfall',
         type: 'bar',
-        yaxis: 'y2'
+        yaxis: 'y3'
     };
 
 
 
     return [trace2, trace1];
+}
 
-    // var layout = {
-    //     barmode: 'stack',
-    //     autosize: true,
-    //     legend: { "orientation": "h" },
-    //     margin: {
-    //         l: 0,
-    //         r: 0,
-    //         b: 0,
-    //         t: 0
-    //     }
-    // };
+function probToZ(p) {
+    switch(p) {
+        case 'Deep Slab':
+            return 1;
+        case 'Storm Slab':
+            return 2;
+        case 'Wind Slab':
+            return 3;
+        case 'Wet Slab':
+            return 4;
+        case 'Persistent Slab':
+            return 5;
+        case 'Normal Caution':
+            return 6;
+        case 'Cornice':
+            return 7;
+        case 'Loose Dry':
+            return 8;
+        case 'Loose Wet':
+            return 9;
+    }
+};
+
+function problemCategories(inputData) {
+    console.log("You called problemCategories");
+    // console.log(Object.keys(inputData["forecasts"]));
+
+    forecasts = inputData["forecasts"];
+
+    // define problem types
+    var probTypes = [
+        'Deep Slab',
+        'Storm Slab',
+        'Wind Slab',
+        'Wet Slab',
+        'Persistent Slab',
+        'Normal Caution',
+        'Cornice',
+        'Loose Dry',
+        'Loose Wet'
+    ];
+
+    // map dates
+    var dates = forecasts.map(d => d.Date);
+
+    // create z values
+    avProbKeys = [
+        "Avalanche Problem 1 Issue",
+        "Avalanche Problem 2 Issue",
+        "Avalanche Problem 3 Issue"
+    ];
+
+    zVals = probTypes.map(function(problem){
+        return forecasts.map(function(f) {
+            if (f['Avalanche Problem 1 Issue'] == problem){
+                return probToZ(problem);
+            } else if (f['Avalanche Problem 2 Issue'] == problem) {
+                return probToZ(problem);
+            } else if (f['Avalanche Problem 3 Issue'] == problem){
+                return probToZ(problem);
+            } else {
+                return null;
+            }
+        })
+    });
+
+    // console.log(zVals);
+
+    return {
+        x: dates,
+        y: probTypes,
+        z: zVals,
+        type: 'heatmap',
+        //colorscale: colorscaleValue,
+        showscale: false
+      };
 }
 
 function createStackedPlot(dataCache, selectedSeason){
     var bnaTrace = createBNAtrace(dataCache[selectedSeason]);
     var plotData = precipTempTraces(dataCache, selectedSeason);
+    var problemTrace = problemCategories(dataCache[selectedSeason]);
     plotData.push(bnaTrace);
+    plotData.push(problemTrace);
 
     var layout = {
-        yaxis: {domain: [0, 0.5]},
+        yaxis: {domain: [0, 0.33]},
         legend: {traceorder: 'reversed'},
-        yaxis2: {domain: [0.5, 1],
-             title: 'Precipitation (In.)' },
+        yaxis2: {domain: [0.33, 0.66]},
+        yaxis3: {domain: [0.66, 1],
+            title: 'Precipitation (In.)' },
         barmode: 'stack',
         legend: { "orientation": "h", x: 0.4, y: .95 },
         margin: {
-                    l: 55,
+                    l: 105,
                     r: 5,
                     b: 35,
                     t: 0
