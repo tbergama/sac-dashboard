@@ -37,6 +37,7 @@ function callPlots(dataCache, selectedSeason) {
     mapObservations(dataCache[selectedSeason].observations);
     precipTempGraph(dataCache, selectedSeason);
     createBNA(dataCache[selectedSeason]);
+    problemCategories(dataCache[selectedSeason]);
 }
 
 
