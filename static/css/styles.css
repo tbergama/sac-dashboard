@@ -64,11 +64,10 @@ nav {
     margin-bottom: 0px;
 }
 
-.incident-map-sm {
+.subPlots {
     width: 100%;
-    height: 500px;
-    margin: 10px;
-    background: #77B96D;
+    height: 550px;
+    margin: 0px;
     color: white;
     text-align: center;
     padding: 0px 0px 0px 0px;
@@ -96,4 +95,12 @@ p {
     border: none;
     background-image: url('../icons/binocs.svg');
     text-align: center;
+}
+
+.sierraFacts {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
 }

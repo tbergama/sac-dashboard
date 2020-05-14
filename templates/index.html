@@ -77,22 +77,18 @@
 
     <div class="container">
         <div id="spinner-container" style="display: none;background: transparent; width: 100%; height: 100%; z-index: 999999999;" role="status">
-            <span class="spinner-border" style=" position: absolute; left: 45%;  top: 50%;  width: 20rem; height: 20rem; z-index: 999999999;"></span>
+            <span class="spinner-border text-primary" style=" position: absolute; left: 45%;  top: 50%;  width: 20rem; height: 20rem; z-index: 999999999;"></span>
         </div>
         <div class="row">
             <div class="col" id="incident-map-main"></div>
         </div>
         <div class="row">
-            <div class="col incident-map-sm" id="precipTempGraph"> </div>
+            <div class="col subPlots" id="stackedCharts"> </div>
+            <!-- <span data-toggle="popover" data-trigger="hover" data-placement="top" data-content="SAC Dashboard info" style="display: block;position: absolute;right: 5px;top: 5px;float: right;z-index: 3;" class="glyphicon glyphicon-question-sign"></span> -->
         </div>
-        <div class="row">
-            <div class="col incident-map-sm" id="bnaGraph"> </div>
-        </div>
-        <div class="row">
-            <div class="col incident-map-sm" id="problemCategories"> </div>
-        </div>
-        <div class="row">
-            <div class="col">
+        <img src="static/legend.svg" alt="Heat Map Legend" width="60%" style="display: block; margin: auto; margin-bottom: 5px;">
+        <div class="row sierraFacts">
+            <div class="col sierraFacts">
                 <img src="static/sierra-nevadas.jpg" alt="Sierra Nevada Mountains" width="100%">
                 <div class="panel panel-info">
                     <div class="panel-heading" style="font-size: 2em;">About the Sierra Nevada Region</div>
@@ -154,8 +150,7 @@
 <script src="static/js/config.js "></script>
 <script src="static/js/problemCategories.js"></script>
 <script src="static/js/incident_leaflet.js "></script>
-<script type="text/javascript " src="{{ url_for( 'static', filename='js/bna_graph.js' ) }} "></script>
-<script type="text/javascript " src="{{ url_for( 'static', filename='js/precipTempGraph.js' ) }} "></script>
+<script type="text/javascript " src="{{ url_for( 'static', filename='js/sharedDateCharts.js' ) }} "></script>
 <script type="text/javascript " src="{{ url_for( 'static', filename='js/script.js' ) }} "></script>
 
 </html>
