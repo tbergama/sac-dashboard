@@ -1,6 +1,4 @@
 function precipTempGraph(dataCache, selectedSeason) {
-    console.log("You called this function!");
-    console.log(Object.keys(dataCache[selectedSeason]['weather']['0']));
 
     var activeArray = dataCache[selectedSeason]['weather']
     var avgHighLow = [];
@@ -12,7 +10,7 @@ function precipTempGraph(dataCache, selectedSeason) {
     var snow;
 
     activeArray.forEach((data) => {
-        var highLow = data['temp']['max'] + " °F    /    " + data['temp']['min'] + " °F";
+        var highLow = Math.round(data['temp']['max']) + " °F    /    " + Math.round(data['temp']['min']) + " °F";
         avgHighLow.push(highLow);
         dates.push(data['date']);
         rain = 0;
@@ -27,10 +25,10 @@ function precipTempGraph(dataCache, selectedSeason) {
         totalRain.push(rain);
     });
 
-    console.log(avgHighLow);
-    console.log(dates);
-    console.log(totalSnow);
-    console.log(totalRain);
+    // console.log(avgHighLow);
+    // console.log(dates);
+    // console.log(totalSnow);
+    // console.log(totalRain);
 
     var trace1 = {
         x: dates,
@@ -54,7 +52,14 @@ function precipTempGraph(dataCache, selectedSeason) {
 
     var layout = {
         barmode: 'stack',
-        autosize: true
+        autosize: true,
+        legend: { "orientation": "h" },
+        margin: {
+            l: 0,
+            r: 0,
+            b: 0,
+            t: 0
+        }
     };
 
     Plotly.newPlot('precipTempGraph', data, layout);
