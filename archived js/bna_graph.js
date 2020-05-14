@@ -31,6 +31,18 @@ function createBNA(data){
     [1, '#01579b']
   ];
 
+  var sacColorScale = [
+    [0, '#1ad117'],
+    [0.25, '#1ad117'],
+    [0.25, '#fff42b'],
+    [0.5, '#fff42b'],
+    [0.5, '#f7aa1b'],
+    [0.75, '#f7aa1b'],
+    [0.75, '#d10000'],
+    [1, '#d10000'],
+    [1, '#000000']
+  ]
+
   //Create Trace/Data
   var dataset = [
     {
@@ -43,7 +55,9 @@ function createBNA(data){
       colorbar:{
         autotick: false,
         tick1: 0,
-        dtick: 1
+        dtick: 1,
+        title: 'Avalanche<br>Danger', //set title
+        titleside:'top', //set position
       },
       ygap: 4,
       showscale: true
