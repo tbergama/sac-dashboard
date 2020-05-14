@@ -61,6 +61,43 @@ forecasts = pymongo.collection.Collection(db, 'forecasts')
 }'''
 
 weather = pymongo.collection.Collection(db, 'weather-daily')
+'''{
+"_id": {
+    "$oid": "5eba1326c3b37045e3001de7"}, 
+"clouds_all": {
+    "max": 75.0, 
+    "mean": 8.833333333333334, 
+    "min": 1.0}, 
+"date": "2018-12-18", 
+"humidity": {
+    "max": 88.0, 
+    "mean": 56.083333333333336, 
+    "min": 31.0}, 
+"lat": 38.939926, 
+"loc_name": "South Lake Tahoe", 
+"lon": -119.97718700000001, 
+"pressure": {
+    "max": 1020.0, 
+    "mean": 1014.125, 
+    "min": 1011.0}, 
+"rain_1h": 0.0, 
+"rain_3h": "NaN", 
+"snow_1h": 0.0, 
+"snow_3h": "NaN", 
+"temp": {
+    "max": 47.77, 
+    "mean": 38.638749999999995, 
+    "min": 32.23}, 
+"wind_deg": {
+    "max": 16.11, 
+    "mean": 7.695, 
+    "min": 2.75}, 
+"wind_speed": {
+    "max": 16.11, 
+    "mean": 7.695, 
+    "min": 2.75}
+}'''
+
 
 obs_one = json.loads(dumps(observations.find_one()))
 
@@ -80,13 +117,13 @@ def index():
 
     return render_template('index.html', sac_dash=data)
 
-@app.route('/api/v1/<start>/<end>')
+@app.route('/api/v1/<start>/<end>',methods=['GET'])
 def date_start_end(start,end):
     data = query_data(start, end)
 
     return data
 
-@app.route('/api/v1/sample')
+@app.route('/api/v1/sample',methods=['GET'])
 def all_data():
     data = query_data('2020-03-01', '2020-06-01')
     return data

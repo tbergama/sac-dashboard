@@ -3,6 +3,9 @@ $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
 
+// "Initialize" myMap variable
+var myMap = null;
+
 // Season Object Lookup
 var seasonLookup = {
     '2013/2014': { min: '2013-11-01', max: '2014-04-30' },
@@ -25,9 +28,16 @@ d3.json(lookupURL).then(data => {
     dataCache[selectedSeason] = data;
     // console.log(dataCache);
     console.log("Loading data for " + selectedSeason);
-    precipTempGraph(dataCache, selectedSeason);
+    // Graph/Map Function calls
     document.getElementById("spinner-container").style.display = "none";
+    callPlots(dataCache, selectedSeason);
 });
+
+function callPlots(dataCache, selectedSeason) {
+    mapObservations(dataCache[selectedSeason].observations);
+    precipTempGraph(dataCache, selectedSeason);
+    createBNA(dataCache[selectedSeason]);
+}
 
 
 // Load data on change
@@ -42,15 +52,14 @@ d3.select('#seasonPicker')
             d3.json(lookupURL).then(data => {
                 // console.log(lookupURL);
                 dataCache[selectedSeason] = data;
-                // console.log(dataCache);
                 console.log("Loading data for " + selectedSeason);
-                precipTempGraph(dataCache, selectedSeason);
                 document.getElementById("spinner-container").style.display = "none";
+                callPlots(dataCache, selectedSeason);
             })
         } else {
             console.log("Data already pulled from API. Referencing cached JSON...");
-            // console.log(dataCache);
-            precipTempGraph(dataCache, selectedSeason);
+            console.log(dataCache);
+            callPlots(dataCache, selectedSeason);
             document.getElementById("spinner-container").style.display = "none";
         }
 
