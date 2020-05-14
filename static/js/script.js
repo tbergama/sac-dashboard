@@ -14,40 +14,44 @@ var seasonLookup = {
     '2019/2020': { min: '2019-11-01', max: '2020-04-30' }
 }
 
+
 var dataCache = {};
 var selectedSeason = d3.select('#seasonPicker').property('value');
-console.log(selectedSeason);
+// console.log(selectedSeason);
 var lookupURL = '/api/v1/' + seasonLookup[selectedSeason]['min'] + '/' + seasonLookup[selectedSeason]['max'];
-console.log(lookupURL);
-
+// console.log(lookupURL);
+document.getElementById("spinner-container").style.display = "block";
 d3.json(lookupURL).then(data => {
     dataCache[selectedSeason] = data;
-    console.log(dataCache);
+    // console.log(dataCache);
+    console.log("Loading data for " + selectedSeason);
     precipTempGraph(dataCache, selectedSeason);
-})
-
-
+    document.getElementById("spinner-container").style.display = "none";
+});
 
 
 // Load data on change
 d3.select('#seasonPicker')
     .on("change", function() {
-        console.log("You changed the dropdown!")
-        selectedSeason = d3.select(this).property('value');
-        console.log(selectedSeason);
-
+        console.log("You changed the dropdown!");
+        var selectedSeason = d3.select(this).property('value');
+        // console.log(selectedSeason);
+        document.getElementById("spinner-container").style.display = "block";
         if (!(dataCache.hasOwnProperty(selectedSeason))) {
+            var lookupURL = '/api/v1/' + seasonLookup[selectedSeason]['min'] + '/' + seasonLookup[selectedSeason]['max'];
             d3.json(lookupURL).then(data => {
-                lookupURL = '/api/v1/' + seasonLookup[selectedSeason]['min'] + '/' + seasonLookup[selectedSeason]['max'];
-                console.log(lookupURL);
+                // console.log(lookupURL);
                 dataCache[selectedSeason] = data;
-                console.log(dataCache);
+                // console.log(dataCache);
+                console.log("Loading data for " + selectedSeason);
                 precipTempGraph(dataCache, selectedSeason);
+                document.getElementById("spinner-container").style.display = "none";
             })
         } else {
             console.log("Data already pulled from API. Referencing cached JSON...");
-            console.log(dataCache);
+            // console.log(dataCache);
             precipTempGraph(dataCache, selectedSeason);
+            document.getElementById("spinner-container").style.display = "none";
         }
 
     });
