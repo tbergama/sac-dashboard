@@ -53,13 +53,19 @@ function createBNA(data){
 
   // Define Layout
   var layout = {
-    title: 'Avalanche Danger by Proximity to Treeline',
+    // title: 'Avalanche Danger by Proximity to Treeline',
     xaxis: {
       range: [dates[-1], dates[0]],
       type: 'date'
     },
     autosize: true,
-    showlegend: false
+    showlegend: false,
+    margin: {
+      l: 50,
+      r: 10,
+      b: 30,
+      t: 0
+  }
   };
   
 
