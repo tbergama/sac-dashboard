@@ -53,11 +53,11 @@ function precipTempGraph(dataCache, selectedSeason) {
     var layout = {
         barmode: 'stack',
         autosize: true,
-        legend: { "orientation": "h" },
+        legend: { "orientation": "h", x: 0.4, y: .95 },
         margin: {
-            l: 0,
-            r: 0,
-            b: 0,
+            l: 30,
+            r: 85,
+            b: 4,
             t: 0
         }
     };
