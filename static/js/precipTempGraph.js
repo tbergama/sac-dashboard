@@ -55,11 +55,13 @@ function precipTempGraph(dataCache, selectedSeason) {
         autosize: true,
         legend: { "orientation": "h", x: 0.4, y: .95 },
         margin: {
-            l: 30,
-            r: 85,
+            l: 40,
+            r: 82,
             b: 4,
             t: 0
-        }
+        },
+        xaxis: { showticklabels: false },
+        yaxis: { title: 'Precipitation (In.)' }
     };
 
     Plotly.newPlot('precipTempGraph', data, layout);
