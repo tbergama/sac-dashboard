@@ -82,6 +82,9 @@
             <div class="col incident-map-sm" id="precipTempGraph"> </div>
         </div>
         <div class="row">
+            <div class="col incident-map-sm" id="bnaGraph"> </div>
+        </div>
+        <div class="row">
             <div class="col">
                 <img src="static/sierra-nevadas.jpg" alt="Sierra Nevada Mountains" width="100%">
                 <div class="panel panel-info">
@@ -144,6 +147,7 @@
 <script src="static/js/config.js "></script>
 <script src="static/js/problem_categories.js"></script>
 <script src="static/js/incident_leaflet.js "></script>
+<script type="text/javascript " src="{{ url_for( 'static', filename='js/bna_graph.js' ) }} "></script>
 <script type="text/javascript " src="{{ url_for( 'static', filename='js/precipTempGraph.js' ) }} "></script>
 <script type="text/javascript " src="{{ url_for( 'static', filename='js/script.js' ) }} "></script>
 
