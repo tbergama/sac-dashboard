@@ -14,6 +14,7 @@ app = Flask(__name__)
 mongo = pymongo.MongoClient(f"mongodb+srv://admin:{password}@cluster0-p6cjk.mongodb.net/test?retryWrites=true&w=majority", connect=False)
 db = pymongo.database.Database(mongo, 'sac-dashboard')
 
+# Define observations collection
 observations = pymongo.collection.Collection(db, 'observations')
 # Sample Observation/Incident
 '''{'_id': {'$oid': '5eb38382517f507e17208142'}, 
@@ -43,9 +44,9 @@ observations = pymongo.collection.Collection(db, 'observations')
         'partial_burials': '0'}
     }'''
 
-
+# Define forecasts collection
 forecasts = pymongo.collection.Collection(db, 'forecasts')
-
+# Sample Forecast
 '''{
 '_id': ObjectId('5eb70199ca551c99d2348c4f'), 
 'Region': 'Sierra Avalanche Center', 
@@ -60,7 +61,9 @@ forecasts = pymongo.collection.Collection(db, 'forecasts')
 'Date': '2020-05-02'
 }'''
 
+# define weather collection
 weather = pymongo.collection.Collection(db, 'weather-daily')
+# Sample weather
 '''{
 "_id": {
     "$oid": "5eba1326c3b37045e3001de7"}, 
@@ -99,9 +102,8 @@ weather = pymongo.collection.Collection(db, 'weather-daily')
 }'''
 
 
-obs_one = json.loads(dumps(observations.find_one()))
-
 # Query data
+# Provided a start and end date, queries all collections of the database and returns dictionary of data
 def query_data(start, end):
     q_obs = json.loads(dumps(observations.find({'properties.datetime': {'$gte': start, '$lt': end}})))
     q_forecasts = json.loads(dumps(forecasts.find({'Date': {'$gte': start, '$lt': end}})))
@@ -111,18 +113,20 @@ def query_data(start, end):
         "forecasts": q_forecasts,
         "weather": q_weather}
 
+# Home route, page js will load base data
 @app.route('/')
 def index():
-    data = {"observations": obs_one}
+    
+    return render_template('index.html')
 
-    return render_template('index.html', sac_dash=data)
-
+# API route, calls query_data and reloads visualizations
 @app.route('/api/v1/<start>/<end>',methods=['GET'])
 def date_start_end(start,end):
     data = query_data(start, end)
 
     return data
 
+# Test/sample route
 @app.route('/api/v1/sample',methods=['GET'])
 def all_data():
     data = query_data('2020-03-01', '2020-06-01')
