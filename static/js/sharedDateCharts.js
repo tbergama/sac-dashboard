@@ -128,7 +128,7 @@ function probToZ(p) {
 };
 
 function problemCategories(inputData) {
-    console.log("You called problemCategories");
+    // console.log("You called problemCategories");
     // console.log(Object.keys(inputData["forecasts"]));
 
     forecasts = inputData["forecasts"];
@@ -190,15 +190,17 @@ function createStackedPlot(dataCache, selectedSeason){
     plotData.push(problemTrace);
 
     var layout = {
-        yaxis: {domain: [0, 0.33]},
+        yaxis: {domain: [0, 0.33],
+            title: 'Snow Issue'},
         legend: {traceorder: 'reversed'},
-        yaxis2: {domain: [0.33, 0.66]},
+        yaxis2: {domain: [0.33, 0.66],
+            title: 'Treeline Danger'},
         yaxis3: {domain: [0.66, 1],
             title: 'Precipitation (In.)' },
         barmode: 'stack',
         legend: { "orientation": "h", x: 0.4, y: .95 },
         margin: {
-                    l: 105,
+                    l: 115,
                     r: 5,
                     b: 35,
                     t: 0
