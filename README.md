@@ -6,10 +6,8 @@ This is an avalanche danger analysis tool for the Tahoe Basin region.  Using cum
 
 ## Charts / Tools
 - **Incident/Observation Map**
-
   This map displays all reported observations and incidents of avalanches during the selected season.  The map is interactive and can be explored for specific areas or data.  Each map feature has a link back to the full observation/incident report.
  - **Stacked Precipitation Chart**
- 
   This chart is intended to correlate local precipitation and snowfall data with details from reported avalanche incidents and forecasts.  All charts are vertically aligned by date.  By following peaks and troughs of precipitation from the top portion downward, one can read into the changes/appearance of certain avalanche dangers and factors.
 
 ## Deployment
